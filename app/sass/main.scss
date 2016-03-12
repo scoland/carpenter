@@ -1,0 +1,21 @@
+@import 'vendor/bulma.css';
+
+.keyboard-canvas {
+	display: block;
+	margin: 0 auto;
+}
+
+.wave {
+	display: none;
+}
+
+#qwerty {
+	display: none;
+}
+
+.osc-header {
+	padding: 2em;
+	width: 70%;
+	margin: 0 auto;
+	background-color: #323237;
+}
