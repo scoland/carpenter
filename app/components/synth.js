@@ -8,7 +8,8 @@ export default function(opt) {
 		},
 		"envelope" : {
 			"attack" : 0.25
-		}
+		},
+		"volume": -15
 	});
 	return poly;
 }

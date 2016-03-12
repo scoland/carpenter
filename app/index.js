@@ -29,10 +29,21 @@ nx.onload = function() {
     			"release": data.list[3] * 10
     		}
     	});
-    })
+    });
 
     select1.on('*', function(data) {
     	synth.oscillator.type = data.text;
+    });
+
+    $('.waves').on('click', 'button', function(event) {
+    	$('.waves button').removeClass('active');
+    	$(this).addClass('active');
+
+    	synth.set({
+    		"oscillator" : {
+    			"type" : $(this).data('wave')
+    		}
+    	});
     });
 
 };

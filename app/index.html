@@ -2,27 +2,35 @@
 <html>
 <head>
 	<title>Sampler</title>
-	<link rel="stylesheet" type="text/css" href="style/bulma.css">
+	<script src="https://use.typekit.net/rhx3gmk.js"></script>
+	<script>try{Typekit.load({ async: true });}catch(e){}</script>
 
 </head>
 <body>
+	    <div class="container">
 
-	<section class="hero is-info is-fullheight">
-	  <div class="hero-content">
-	    <div class="container is-fluid">
-	    	<div class="osc-header">
-				<a class="button">Sine</a>
-				<a class="button">Square</a>
-				<a class="button">Sawtooth</a>
-				<a class="button">Triangle</a>
-				<a class="button">PWM</a>
-	    	</div>
-	    	<canvas nx="multislider" height="150" width="200"></canvas>
-	      	<!-- <canvas nx="keyboard" height="400" width="1200" class="keyboard-canvas"></canvas> -->
-	      	<canvas nx="select" class="wave"></canvas>
+		    <div class="synth-contain">
+
+		    	<div class="osc-contain">
+		    		<div class="card-header">
+		    			<h2>Oscillator</h2>
+		    		</div>
+		    		<div class="card-body">
+						<div class="tabs is-toggle waves">
+							<button class="active sine-wave" data-wave="sine">Sin</button>
+							<button class="square-wave" data-wave="square">Sqr</button>
+							<button class="triange-wave" data-wave="triangle">Tri</button>
+							<button class="saw-wave" data-wave="sawtooth">Saw</button>
+						</div>
+		    		</div>
+		    	</div>
+
+		    	<canvas nx="multislider" height="150" width="200"></canvas>
+		      	<!-- <canvas nx="keyboard" height="400" width="1200" class="keyboard-canvas"></canvas> -->
+		      	<canvas nx="select" class="wave"></canvas>
+		    	
+		    </div>
 	    </div>
-	  </div>
-	</section>
 	
 	<div id="qwerty"></div>
 
