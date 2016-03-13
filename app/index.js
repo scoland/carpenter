@@ -9,11 +9,9 @@ nx.onload = function() {
 	var inputs;
 
 	const synth = polySynth();
-	console.log(synth);
-	const midi = midiInit(synth);
-
-	select1.choices = ["sine", "square", "triangle", "sawtooth", "pwm", "pulse"];
-	select1.init();
+	const filter = new Tone.Filter().toMaster();
+	synth.connect(filter);
+	const midi = midiInit(synth, dial1);
 	
     nx.colorize("accent", "#1ac");
 
@@ -31,9 +29,12 @@ nx.onload = function() {
     	});
     });
 
-    select1.on('*', function(data) {
-    	synth.oscillator.type = data.text;
-    });
+    dial1.colors.fill = '#ffffff';
+    dial1.draw();
+
+    dial1.on('*', data => {
+    	filter.frequency.value = data.value * 12000 + 80;
+    })
 
     $('.waves').on('click', 'button', function(event) {
     	$('.waves button').removeClass('active');

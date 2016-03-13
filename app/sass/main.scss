@@ -27,9 +27,27 @@ html {
 	display: none;
 }
 
-.osc-contain {
+.synth-contain {
 	background-color: $slate-gray;
-	border-radius: 8px;
+
+	h2 {
+		font-family: "proxima-nova",sans-serif;
+		font-weight: 700;
+		text-transform: uppercase;
+		font-size: 1.3em;
+	}
+
+	.card-body {
+		padding: 1em;
+	}
+}
+
+.card-header {
+	padding: .4em 1em;
+	border: 3px solid #fff;
+}
+
+.osc-contain {
 
 	button {
 		border: none;
@@ -60,23 +78,5 @@ html {
 	    	color: $slate-gray;
 	    	background: #fff;
 	    }
-	}
-
-	.card-header {
-		background-color: $off-gray;
-		padding: .4em 1em;
-		border-top-left-radius: 8px;
-		border-top-right-radius: 8px;
-	}
-
-	h2 {
-		font-family: "proxima-nova",sans-serif;
-		font-weight: 700;
-		text-transform: uppercase;
-		font-size: 1.3em;
-	}
-
-	.card-body {
-		padding: 1em;
 	}
 }

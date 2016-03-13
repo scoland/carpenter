@@ -1,4 +1,4 @@
-export default function(synth) {
+export default function(synth, cutoff, amp) {
 
 	// Initialize midi config
 	var inputs, input;
@@ -18,15 +18,19 @@ export default function(synth) {
 	    * e.data[1] = midi note
 	    * e.data[2] = velocity || detune
 	    */
+
 	    switch(e.data[0]) {
 	        case 157:
-	            console.log('Note on, note: ', _mtof(e.data[1]));
 	            synth.triggerAttack(_mtof(e.data[1]));
 	            break;
 	        case 141:
-	            console.log('Note off, note: ', _mtof(e.data[1]));
 	            synth.triggerRelease(_mtof(e.data[1]));
 	            break;
+	        case 189:
+	        	cutoff.set({
+	        		value: e.data[2] / 127
+	        	}, true);
+	        	break;
 	    }
 	}
 
