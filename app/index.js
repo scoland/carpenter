@@ -6,28 +6,44 @@ import polySynth from './components/synth';
 import midiInit from './components/midi'
 
 nx.onload = function() {
+	const first = '#2C2D34';
+	const second = '#E94822';
+	const third = '#F2910A';
+	const fourth = '#EFD510';
+
+    dial1.colors.accent = second;
+    dial1.init();
+
+    dial2.colors.accent = first;
+	dial2.init();
+
 	var inputs;
 
-	const synth = polySynth();
-	const filter = new Tone.Filter(12000, "lowpass", -24);
-	const freeverb = new Tone.Freeverb().toMaster();
-	const lfo = new Tone.LFO(5, 400, 4000);
 
-	lfo.connect(filter.frequency);
-	synth.connect(filter);
-	filter.connect(freeverb);
 
-	const midi = midiInit(synth, dial1);
+	// const synth = polySynth();
+	// const filter = new Tone.Filter(12000, "lowpass", -24);
+	// const freeverb = new Tone.Freeverb().toMaster();
+	// const lfo = new Tone.LFO(5, 400, 4000);
 
-	// No reverb to start off
-	freeverb.wet.value = 0;
+	// lfo.connect(filter.frequency);
+	// synth.connect(filter);
+	// filter.connect(freeverb);
 
-	filter.frequency.value = 12000;
+	// const midi = midiInit(synth, dial1);
+
+	// // No reverb to start off
+	// freeverb.wet.value = 0;
+
+	// filter.frequency.value = 12000;
 	
-    nx.colorize("accent", "#1ac");
 
     multislider1.sliders = 4;
+    multislider1.colors.accent = first;
     multislider1.init();
+
+    toggle1.colors.accent = second;
+    toggle1.init();
 
     multislider1.set({
 	        		0: 0.005,
@@ -36,47 +52,47 @@ nx.onload = function() {
 	        		3: 1 / 8
 	        	});
 
-    dial1.set({
-    	value: 1
-    }, true);
+ //    dial1.set({
+ //    	value: 1
+ //    }, true);
 
-    dial2.set({
-    	value: .7
-    });
+ //    dial2.set({
+ //    	value: .7
+ //    });
 
-    dial4.set({
-    	value: .5
-    });
+ //    dial4.set({
+ //    	value: .5
+ //    });
 
-    multislider1.on('*', (data) => {
-    	synth.set({
-    		"envelope" : {
-    			"attack": data.list[0],
-    			"decay": data.list[1],
-    			"sustain": data.list[2],
-    			"release": data.list[3] * 8
-    		}
-    	});
-    });
+ //    multislider1.on('*', (data) => {
+ //    	synth.set({
+ //    		"envelope" : {
+ //    			"attack": data.list[0],
+ //    			"decay": data.list[1],
+ //    			"sustain": data.list[2],
+ //    			"release": data.list[3] * 8
+ //    		}
+ //    	});
+ //    });
 
-    dial1.colors.fill = '#ffffff';
-    dial1.draw();
+ //    dial1.colors.fill = '#ffffff';
+ //    dial1.draw();
 
-    dial1.on('*', data => {
-    	filter.frequency.value = data.value * 12000;
-    });
+ //    dial1.on('*', data => {
+ //    	filter.frequency.value = data.value * 12000;
+ //    });
 
-    dial2.on('*', data => {
-    	freeverb.roomSize.value = data.value;
-    });
+ //    dial2.on('*', data => {
+ //    	freeverb.roomSize.value = data.value;
+ //    });
 
-    dial3.on('*', data => {
-    	freeverb.wet.value = data.value;
-    });
+ //    dial3.on('*', data => {
+ //    	freeverb.wet.value = data.value;
+ //    });
 
-    dial4.on('*', data => {
-    	lfo.frequency.value = data.value * 10;
-    })
+ //    dial4.on('*', data => {
+ //    	lfo.frequency.value = data.value * 10;
+ //    })
 
     toggle1.on('*', data => {
     	if (data.value) {
@@ -86,15 +102,15 @@ nx.onload = function() {
     	}
     });
 
-    $('.waves').on('click', 'button', function(event) {
-    	$('.waves button').removeClass('active');
-    	$(this).addClass('active');
+ //    $('.waves').on('click', 'button', function(event) {
+ //    	$('.waves button').removeClass('active');
+ //    	$(this).addClass('active');
 
-    	synth.set({
-    		"oscillator" : {
-    			"type" : $(this).data('wave')
-    		}
-    	});
-    });
+ //    	synth.set({
+ //    		"oscillator" : {
+ //    			"type" : $(this).data('wave')
+ //    		}
+ //    	});
+ //    });
 
 };

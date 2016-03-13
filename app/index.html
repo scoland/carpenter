@@ -4,10 +4,80 @@
 	<title>Sampler</title>
 	<script src="https://use.typekit.net/rhx3gmk.js"></script>
 	<script>try{Typekit.load({ async: true });}catch(e){}</script>
-
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
 <body>
-	    <div class="container">
+
+	<ul class="modules">
+		<li class="osc">
+			<h2>Osc</h2>
+			<div class="tabs is-toggle waves">
+				<button class="active sine-wave" data-wave="sine">Sin</button>
+				<button class="square-wave" data-wave="square">Sqr</button>
+				<button class="triange-wave" data-wave="triangle">Tri</button>
+				<button class="saw-wave" data-wave="sawtooth">Saw</button>
+			</div>
+
+			<div class="octave-contain">
+				<h3>Octave</h3>
+				<a><i class="fa fa-chevron-left"></i></a>
+				<span>0</span>
+				<a><i class="fa fa-chevron-right"></i></a>
+			</div>
+
+			<div class="detune-contain">
+				<h3>Detune</h3>
+				<a><i class="fa fa-chevron-left"></i></a>
+				<span>0</span>
+				<a><i class="fa fa-chevron-right"></i></a>
+			</div>
+
+			<div class="amp-contain">
+				<h3>Amp</h3>
+				<canvas nx="dial" width="80" height="80"></canvas>
+			</div>
+		</li>
+		<li class="filter">
+			<h2>Filters</h2>
+
+			<div class="tabs is-toggle filters">
+				<button class="active sine-wave" data-wave="lowpass">Lowpass</button>
+				<button class="square-wave" data-wave="highpass">Highpass</button>
+				<button class="triange-wave" data-wave="bandpass">Bandpass</button>
+				<button class="saw-wave" data-wave="notch">Notch</button>
+			</div>
+
+			<h3>Cutoff</h3>
+			<div class="filter-knob-contain">
+				<canvas nx="dial" width="80" height="80" label="Cutoff"></canvas>
+			</div>
+		</li>
+		<li class="envelope">
+			<div class="env-contain">
+				<h2>Env</h2>
+				<div class="multi-contain">
+					<canvas nx="multislider" height="175" width="250"></canvas>
+				</div>
+				
+			</div>
+			<div class="lfo-contain">
+				<h2>LFO</h2>
+				<canvas nx="toggle"></canvas>
+				<canvas nx="dial" width="80" height="80"></canvas>
+			</div>
+		</li>
+		<li class="effects">
+			<h2>FX</h2>
+
+			<h3>Reverb</h3>
+			<canvas nx="dial" width="80" height="80"></canvas>
+			<p>Room</p>
+			<canvas nx="dial" width="80" height="80"></canvas>
+			<p>Wet</p>
+		</li>
+	</ul>
+
+	   <!--  <div class="container">
 
 		    <div class="synth-contain">
 
@@ -76,14 +146,12 @@
     		    	</div>
     	    		
     	    	</div>
-
+ -->
 		      	<!-- <canvas nx="keyboard" height="400" width="1200" class="keyboard-canvas"></canvas> -->
 		      	<!-- <canvas nx="select" class="wave"></canvas> -->
 		    	
 		    </div>
 	    </div>
-	
-	<div id="qwerty"></div>
 
 </body>
 </html>
