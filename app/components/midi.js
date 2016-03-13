@@ -1,4 +1,4 @@
-export default function(synth, cutoff) {
+export default function(synth, cutoff, state) {
 
 	// Initialize midi config
 	var inputs, input;
@@ -21,10 +21,11 @@ export default function(synth, cutoff) {
 
 	    switch(e.data[0]) {
 	        case 157:
-	            synth.triggerAttack(_mtof(e.data[1]));
+
+	            synth.triggerAttack(_mtof(e.data[1], state));
 	            break;
 	        case 141:
-	            synth.triggerRelease(_mtof(e.data[1]));
+	            synth.triggerRelease(_mtof(e.data[1], state));
 	            break;
 	        case 189:
 	        	cutoff.set({
@@ -35,7 +36,9 @@ export default function(synth, cutoff) {
 	}
 
 	// Convert midi note to frequency
-	function _mtof(note) {
-	    return 440 * Math.pow(2, (note - 69) / 12);
+	function _mtof(note, state) {
+	    let hz = 440 * Math.pow(2, (note - 69) / 12);
+	    hz = hz * Math.pow(2, state.octave);
+	    return hz;
 	}
 }

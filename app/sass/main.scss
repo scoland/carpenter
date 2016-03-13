@@ -180,6 +180,10 @@ html, body {
 			font-weight: 400;
 		}
 
+		.dec-octave, .inc-octave, .dec-detune, .inc-detune {
+			color: #fff;
+		}
+
 		.detune-contain, .octave-contain {
 			width: 50%;
 			float: left;

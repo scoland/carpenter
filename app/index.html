@@ -20,21 +20,21 @@
 
 			<div class="octave-contain">
 				<h3>Octave</h3>
-				<a><i class="fa fa-chevron-left"></i></a>
-				<span>0</span>
-				<a><i class="fa fa-chevron-right"></i></a>
+				<a href="#" class="dec-octave"><i class="fa fa-chevron-left"></i></a>
+				<span class="octave-num">0</span>
+				<a href="#" class="inc-octave"><i class="fa fa-chevron-right"></i></a>
 			</div>
 
 			<div class="detune-contain">
 				<h3>Detune</h3>
-				<a><i class="fa fa-chevron-left"></i></a>
-				<span>0</span>
-				<a><i class="fa fa-chevron-right"></i></a>
+				<a href="#" class="dec-detune"><i class="fa fa-chevron-left"></i></a>
+				<span class="detune-num">0</span>
+				<a href="#" class="inc-detune"><i class="fa fa-chevron-right"></i></a>
 			</div>
 
 			<div class="amp-contain">
 				<h3>Amp</h3>
-				<canvas nx="dial" width="80" height="80"></canvas>
+				<canvas nx="dial" width="80" height="80" id="ampdial"></canvas>
 			</div>
 		</li>
 		<li class="filter">
@@ -49,31 +49,44 @@
 
 			<h3>Cutoff</h3>
 			<div class="filter-knob-contain">
-				<canvas nx="dial" width="80" height="80" label="Cutoff"></canvas>
+				<canvas nx="dial" id="cutoffdial" width="80" height="80"></canvas>
 			</div>
 		</li>
 		<li class="envelope">
 			<div class="env-contain">
 				<h2>Env</h2>
 				<div class="multi-contain">
-					<canvas nx="multislider" height="175" width="250"></canvas>
+					<canvas nx="multislider" height="175" width="250" id="envadsr"></canvas>
 				</div>
 				
 			</div>
 			<div class="lfo-contain">
 				<h2>LFO</h2>
-				<canvas nx="toggle"></canvas>
-				<canvas nx="dial" width="80" height="80"></canvas>
+				<canvas nx="toggle" id="lfotoggle"></canvas>
+				<canvas nx="dial" width="80" height="80" id="lforate"></canvas>
 			</div>
 		</li>
 		<li class="effects">
 			<h2>FX</h2>
 
-			<h3>Reverb</h3>
-			<canvas nx="dial" width="80" height="80"></canvas>
-			<p>Room</p>
-			<canvas nx="dial" width="80" height="80"></canvas>
-			<p>Wet</p>
+			<div class="verb-contain">
+				<h3>Reverb</h3>
+				<canvas nx="toggle" id="verbtoggle"></canvas>
+				<canvas nx="dial" width="80" height="80" id="verbroom"></canvas>
+				<p>Room</p>
+				<canvas nx="dial" width="80" height="80" id="verbwet"></canvas>
+				<p>Wet</p>
+			</div>
+
+			<div class="distortion-contain">
+				<h3>Distortion</h3>
+				<canvas nx="toggle"></canvas>
+				<canvas nx="dial" width="80" height="80" id="distamt"></canvas>
+				<p>Amount</p>
+				<canvas nx="dial" width="80" height="80" id="distwet"></canvas>
+				<p>Wet</p>
+			</div>
+
 		</li>
 	</ul>
 
