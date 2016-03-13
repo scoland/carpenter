@@ -1,4 +1,4 @@
-export default function(synth, cutoff, amp) {
+export default function(synth, cutoff) {
 
 	// Initialize midi config
 	var inputs, input;

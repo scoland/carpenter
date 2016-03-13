@@ -6,6 +6,7 @@ export default function(opt) {
 		"oscillator" : {
 			"type" : "sine"
 		},
+		"volume": -15
 	});
 	return poly;
 }
