@@ -36,6 +36,12 @@ nx.onload = function() {
 	filter.connect(freeverb);
 	freeverb.connect(dist);
 
+	synth.set({
+    		"envelope" : {
+    			"attack": .1
+    		}
+    	});
+
 	const midi = midiInit(synth, cutoffdial, state);
 
 	// No reverb to start off
@@ -54,11 +60,14 @@ nx.onload = function() {
     verbtoggle.colors.accent = first;
 
     envadsr.set({
-	        		0: 0.005,
+	        		0: 0.1,
 	        		1: 0.1,
 	        		2: 0.3,
 	        		3: 1 / 8
 	        	});
+   	cutoffdial.set({
+   	    	value: 1
+   	    });
 
     ampdial.set({
     	value: .75
@@ -80,23 +89,20 @@ nx.onload = function() {
  //    	value: .5
  //    });
 
- //    multislider1.on('*', (data) => {
- //    	synth.set({
- //    		"envelope" : {
- //    			"attack": data.list[0],
- //    			"decay": data.list[1],
- //    			"sustain": data.list[2],
- //    			"release": data.list[3] * 8
- //    		}
- //    	});
- //    });
+    envadsr.on('*', (data) => {
+    	synth.set({
+    		"envelope" : {
+    			"attack": data.list[0],
+    			"decay": data.list[1],
+    			"sustain": data.list[2],
+    			"release": data.list[3] * 8
+    		}
+    	});
+    });
 
  //    dial1.colors.fill = '#ffffff';
  //    dial1.draw();
 
- //    dial1.on('*', data => {
- //    	filter.frequency.value = data.value * 12000;
- //    });
 
  //    dial2.on('*', data => {
  //    	freeverb.roomSize.value = data.value;
@@ -117,6 +123,11 @@ nx.onload = function() {
     // 		lfo.stop();
     // 	}
     // });
+
+    cutoffdial.on('*', data => {
+    	console.log(filter.frequency.value);
+    	filter.frequency.value = data.value * 12000;
+    });
 
     $('.octave-contain').on('click', 'a', function(event) {
     	if ($(this).hasClass('dec-octave')) {
@@ -149,10 +160,17 @@ nx.onload = function() {
     	$(this).addClass('active');
 
     	synth.set({
-    		"oscillator" : {
-    			"type" : $(this).data('wave')
+    		"oscillator": {
+    			"type": $(this).data('wave')
     		}
-    	});
+    	})
+    });
+
+    $('.filters').on('click', 'button', function(event) {
+    	$('.filters button').removeClass('active');
+    	$(this).addClass('active');
+
+    	filter.type = $(this).data('filter');
     });
 
 };

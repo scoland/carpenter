@@ -18,7 +18,7 @@ export default function(synth, cutoff, state) {
 	    * e.data[1] = midi note
 	    * e.data[2] = velocity || detune
 	    */
-
+	    console.log(e.data);
 	    switch(e.data[0]) {
 	        case 157:
 
@@ -28,10 +28,12 @@ export default function(synth, cutoff, state) {
 	            synth.triggerRelease(_mtof(e.data[1], state));
 	            break;
 	        case 189:
-	        	cutoff.set({
-	        		value: e.data[2] / 127
-	        	}, true);
-	        	break;
+	        	if (e.data[1] === 1) {
+		        	cutoff.set({
+		        		value: e.data[2] / 127
+		        	}, true);
+	        	}
+		        break;
 	    }
 	}
 
