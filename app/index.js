@@ -26,15 +26,16 @@ nx.onload = function() {
 
 	const synth = polySynth();
 	const filter = new Tone.Filter(12000, "lowpass", -24);
-	const freeverb = new Tone.Freeverb();
-	const dist = new Tone.Distortion(0.8).toMaster();
+	const pingPong = new Tone.PingPongDelay();
+	const freeverb = new Tone.Freeverb().toMaster();
+	// const dist = new Tone.Distortion(0.8).toMaster();
 	const lfo = new Tone.LFO(5, 400, 4000);
 
 	lfo.connect(filter.frequency);
 
 	synth.connect(filter);
-	filter.connect(freeverb);
-	freeverb.connect(dist);
+	filter.connect(pingPong);
+	pingPong.connect(freeverb);
 
 	synth.set({
     		"envelope" : {
@@ -46,6 +47,7 @@ nx.onload = function() {
 
 	// No reverb to start off
 	freeverb.wet.value = 0;
+	pingPong.wet.value = 0;
 
 	filter.frequency.value = 12000;
 	
@@ -56,8 +58,6 @@ nx.onload = function() {
 
     lfotoggle.colors.accent = second;
     lfotoggle.init();
-
-    verbtoggle.colors.accent = first;
 
     envadsr.set({
 	        		0: 0.1,
@@ -81,15 +81,7 @@ nx.onload = function() {
     	})
     });
 
- //    dial2.set({
- //    	value: .7
- //    });
-
- //    dial4.set({
- //    	value: .5
- //    });
-
-    envadsr.on('*', (data) => {
+    envadsr.on('*', data => {
     	synth.set({
     		"envelope" : {
     			"attack": data.list[0],
@@ -100,32 +92,35 @@ nx.onload = function() {
     	});
     });
 
- //    dial1.colors.fill = '#ffffff';
- //    dial1.draw();
+    verbwet.on('*', data => {
+    	freeverb.wet.value = data.value;
+    });
 
+    verbroom.on('*', data => {
+    	freeverb.roomSize.value = data.value;
+    });
 
- //    dial2.on('*', data => {
- //    	freeverb.roomSize.value = data.value;
- //    });
+    pingfb.on('*', data => {
+    	pingPong.feedback.value = data.value;
+    });
 
- //    dial3.on('*', data => {
- //    	freeverb.wet.value = data.value;
- //    });
+    pingwet.on('*', data => {
+    	pingPong.wet.value = data.value;
+    });
 
- //    dial4.on('*', data => {
- //    	lfo.frequency.value = data.value * 10;
- //    })
+    lforate.on('*', data => {
+    	lfo.frequency.value = data.value * 10;
+    })
 
-    // toggle1.on('*', data => {
-    // 	if (data.value) {
-    // 		lfo.start();
-    // 	} else {
-    // 		lfo.stop();
-    // 	}
-    // });
+    lfotoggle.on('*', data => {
+    	if (data.value) {
+    		lfo.start();
+    	} else {
+    		lfo.stop();
+    	}
+    });
 
     cutoffdial.on('*', data => {
-    	console.log(filter.frequency.value);
     	filter.frequency.value = data.value * 12000;
     });
 

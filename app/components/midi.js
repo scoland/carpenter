@@ -18,7 +18,6 @@ export default function(synth, cutoff, state) {
 	    * e.data[1] = midi note
 	    * e.data[2] = velocity || detune
 	    */
-	    console.log(e.data);
 	    switch(e.data[0]) {
 	        case 157:
 
