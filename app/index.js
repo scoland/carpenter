@@ -55,7 +55,7 @@ nx.onload = function() {
     		}
     	});
 
-	const midi = midiInit(synth, synth2, cutoffdial, lforate, state);
+	const midi = midiInit(synth, synth2, cutoffdial, lforate, verbwet, pingwet, state);
 
 	// No reverb to start off
 	freeverb.wet.value = 0;

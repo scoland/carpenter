@@ -1,4 +1,4 @@
-export default function(synth, synth2, cutoff, lfo, state) {
+export default function(synth, synth2, cutoff, lfo, verb, ping, state) {
 
 	// Initialize midi config
 	var inputs, input;
@@ -36,6 +36,21 @@ export default function(synth, synth2, cutoff, lfo, state) {
 	        	}
 	        	if (e.data[1] === 2) {
 	        		lfo.set({
+		        		value: e.data[2] / 127
+		        	}, true);
+	        	}
+	        	if (e.data[1] === 3) {
+	        		verb.set({
+		        		value: e.data[2] / 127
+		        	}, true);
+	        	}
+	        	if (e.data[1] === 4) {
+	        		ping.set({
+		        		value: e.data[2] / 127
+		        	}, true);
+	        	}
+	        	if (e.data[1] === 5) {
+	        		ping.set({
 		        		value: e.data[2] / 127
 		        	}, true);
 	        	}
