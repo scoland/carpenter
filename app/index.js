@@ -7,8 +7,14 @@ import midiInit from './components/midi'
 
 nx.onload = function() {
 	const state = {
-		octave: 0,
-		detune: 0
+		synth1: {
+			octave: 0,
+			detune: 0
+		},
+		synth2: {
+			octave: 0,
+			detune: 0
+		}
 	};
 
 	const first = '#2C2D34';
@@ -17,6 +23,8 @@ nx.onload = function() {
 	const fourth = '#EFD510';
 
     ampdial.colors.accent = second;
+    amp2dial.colors.fill = first;
+    amp2dial.init();
     ampdial.init();
 
     cutoffdial.colors.accent = first;
@@ -25,17 +33,21 @@ nx.onload = function() {
 	var inputs;
 
 	const synth = polySynth();
+	const synth2 = polySynth();
 	const filter = new Tone.Filter(12000, "lowpass", -24);
 	const pingPong = new Tone.PingPongDelay();
-	const freeverb = new Tone.Freeverb().toMaster();
+	const freeverb = new Tone.Freeverb();
+	const crusher = new Tone.BitCrusher(4).toMaster();
 	// const dist = new Tone.Distortion(0.8).toMaster();
 	const lfo = new Tone.LFO(5, 400, 4000);
 
 	lfo.connect(filter.frequency);
 
 	synth.connect(filter);
+	synth2.connect(filter);
 	filter.connect(pingPong);
 	pingPong.connect(freeverb);
+	freeverb.connect(crusher);
 
 	synth.set({
     		"envelope" : {
@@ -43,11 +55,12 @@ nx.onload = function() {
     		}
     	});
 
-	const midi = midiInit(synth, cutoffdial, state);
+	const midi = midiInit(synth, synth2, cutoffdial, lforate, state);
 
 	// No reverb to start off
 	freeverb.wet.value = 0;
 	pingPong.wet.value = 0;
+	crusher.wet.value = 0;
 
 	filter.frequency.value = 12000;
 	
@@ -56,7 +69,19 @@ nx.onload = function() {
     envadsr.colors.accent = first;
     envadsr.init();
 
-    lfotoggle.colors.accent = second;
+    verbroom.colors.accent = '#E6E6E6';
+    verbroom.colors.fill = first;
+    verbwet.colors.accent = '#E6E6E6';
+    verbwet.colors.fill = first;
+    verbroom.init();
+    verbwet.init();
+
+    pingfb.colors.fill = first;
+    pingwet.colors.fill = first;
+    pingfb.init();
+    pingwet.init();
+
+    lfotoggle.colors.accent = first;
     lfotoggle.init();
 
     envadsr.set({
@@ -73,12 +98,32 @@ nx.onload = function() {
     	value: .75
     }, true);
 
+    amp2dial.set({
+    	value: .75
+    }, true);
+
     ampdial.on('*', data => {
     	synth.set({
     		"oscillator": {
     			volume: scaleRange(data.value, -40, 16)
     		}
     	})
+    });
+
+    amp2dial.on('*', data => {
+    	synth2.set({
+    		"oscillator": {
+    			volume: scaleRange(data.value, -40, 16)
+    		}
+    	})
+    });
+
+    crushbits.on('*', data => {
+    	crusher.bits = Math.floor(data.value * 8);
+    });
+
+    crushwet.on('*', data => {
+    	crusher.wet.value = data.value;
     });
 
     envadsr.on('*', data => {
@@ -126,26 +171,52 @@ nx.onload = function() {
 
     $('.octave-contain').on('click', 'a', function(event) {
     	if ($(this).hasClass('dec-octave')) {
-    		state.octave--;
-    		$('.octave-num').text(state.octave);
+    		state.synth1.octave--;
+    		$('.octave-contain .octave-num').text(state.synth1.octave);
     	} else {
-    		state.octave++
-    		$('.octave-num').text(state.octave);
+    		state.synth1.octave++
+    		$('.octave-contain .octave-num').text(state.synth1.octave);
+    	}
+    });
+
+    $('.octave-contain-2').on('click', 'a', function(event) {
+    	if ($(this).hasClass('dec-octave')) {
+    		state.synth2.octave--;
+    		$('.octave-contain-2 .octave-num').text(state.synth2.octave);
+    	} else {
+    		state.synth2.octave++
+    		$('.octave-contain-2 .octave-num').text(state.synth2.octave);
     	}
     });
 
     $('.detune-contain').on('click', 'a', function(event) {
     	if ($(this).hasClass('dec-detune')) {
-    		state.detune--;
-    		$('.detune-num').text(state.detune);
+    		state.synth1.detune--;
+    		$('.detune-contain .detune-num').text(state.synth1.detune);
     	} else {
-    		state.detune++
-    		$('.detune-num').text(state.detune);
+    		state.synth1.detune++
+    		$('.detune-contain .detune-num').text(state.synth1.detune);
     	}
 
     	synth.set({
     		"oscillator": {
-    			"detune": state.detune
+    			"detune": state.synth1.detune
+    		}
+    	});
+    });
+
+    $('.detune-contain-2').on('click', 'a', function(event) {
+    	if ($(this).hasClass('dec-detune')) {
+    		state.synth2.detune--;
+    		$('.detune-contain-2 .detune-num').text(state.synth2.detune);
+    	} else {
+    		state.synth2.detune++
+    		$('.detune-contain-2 .detune-num').text(state.synth2.detune);
+    	}
+
+    	synth.set({
+    		"oscillator": {
+    			"detune": state.synth2.detune
     		}
     	});
     });
@@ -161,12 +232,33 @@ nx.onload = function() {
     	})
     });
 
+    $('.waves-2').on('click', 'button', function(event) {
+    	$('.waves-2 button').removeClass('active');
+    	$(this).addClass('active');
+
+    	synth2.set({
+    		"oscillator": {
+    			"type": $(this).data('wave')
+    		}
+    	})
+    });
+
     $('.filters').on('click', 'button', function(event) {
     	$('.filters button').removeClass('active');
     	$(this).addClass('active');
 
     	filter.type = $(this).data('filter');
     });
+
+    $('.osc2-up').click(function(test) {
+    	$('.osc-2-contain').removeClass('slide-down');
+    	$('.osc-2-contain').addClass('slide-up');
+    });
+
+    $('.osc1-up').click(function(test) {
+    	$('.osc-2-contain').removeClass('slide-up');
+    	$('.osc-2-contain').addClass('slide-down');
+    })
 
 };
 

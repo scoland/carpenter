@@ -1,104 +1,11 @@
-// @import 'vendor/bulma.css';
-
-// $slate-gray: #323237;
-// $off-gray: #787F8B;
-
-// html {
-// 	font-family: "proxima-nova",sans-serif;
-// 	font-weight: 400;
-// 	background-color: #1fc8db;
-// }
-
-// .synth-contain {
-// 	margin-top: 2em;
-// 	color: white;
-// }
-
-// .keyboard-canvas {
-// 	display: block;
-// 	margin: 0 auto;
-// }
-
-// .wave {
-// 	display: none;
-// }
-
-// #qwerty {
-// 	display: none;
-// }
-
-// .synth-contain {
-// 	background-color: $slate-gray;
-
-// 	h2 {
-// 		font-family: "proxima-nova",sans-serif;
-// 		font-weight: 700;
-// 		text-transform: uppercase;
-// 		font-size: 1.3em;
-// 	}
-
-// 	.card-body {
-// 		padding: 1em;
-// 	}
-// }
-
-// .card-header {
-// 	padding: .4em 1em;
-// 	border: 3px solid #fff;
-// }
-
-// .osc-contain {
-
-// 	button {
-// 		border: none;
-// 	    font-family: inherit;
-// 	    font-size: inherit;
-// 	    color: inherit;
-// 	    background: none;
-// 	    cursor: pointer;
-// 	    padding: 15px 70px;
-// 	    display: inline-block;
-// 	    text-transform: uppercase;
-// 	    letter-spacing: 1px;
-// 	    font-weight: 700;
-// 	    outline: none;
-// 	    position: relative;
-// 	    -webkit-transition: all 0.3s;
-// 	    -moz-transition: all 0.3s;
-// 	    transition: all 0.3s;
-// 	    border: 3px solid #fff;
-// 	    color: #fff;
-// 	    margin-right: 7%;
-
-// 	    &:last-of-type {
-// 	    	margin-right: 0;
-// 	    }
-
-// 	    &:hover, &.active {
-// 	    	color: $slate-gray;
-// 	    	background: #fff;
-// 	    }
-// 	}
-// }
-
-// $first: #08D9D6;
-// $second: #252A34;
-// $third: #FF2E63;
-// $fourth: #EAEAEA;
-
-// $first: #F38181;
-// $second: #FCE38A;
-// $third: #EAFFD0;
-// $fourth: #95E1D3;
-
 .clearfix:after {
-     visibility: hidden;
-     display: block;
-     font-size: 0;
-     content: " ";
-     clear: both;
-     height: 0;
-     }
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: " ";
+	clear: both;
+	height: 0;
+ }
 .clearfix { display: inline-block; }
 /* start commented backslash hack \*/
 * html .clearfix { height: 1%; }
@@ -109,6 +16,7 @@ $first: #2C2D34;
 $second: #E94822;
 $third: #F2910A;
 $fourth: #EFD510;
+$off-white: #E6E6E6;
 
 @import 'vendor/normalize';
 
@@ -127,6 +35,10 @@ html, body {
 	height: 100%;
 	margin: 0;
 	padding: 0;
+
+	.waves {
+		margin-bottom: 1em;
+	}
 
 	h2 {
 		color: white;
@@ -163,10 +75,31 @@ html, body {
 	    color: #fff;
 	    width: 60%;
 	    margin-bottom: 1em;
-	}
+	}	
 
 	.osc {
+		overflow: hidden;
+	}
+
+	.slide-up {
+		transform: translateY(-100%);
+	}
+
+	.slide-down {
+		transform: translateY(100%);
+	}
+
+	.osc-1-contain, .osc-2-contain {
+
+		-webkit-transition: -webkit-transform .5s ease-in-out;
+
+		h2 {
+			margin:0;
+			padding-top: 20px;
+			padding-bottom: 20px;
+		}
 		color: #fff;
+		height: 100vh;
 		text-align: center;
 		background-color: $first;
 
@@ -178,13 +111,14 @@ html, body {
 		h3 {
 			text-transform: uppercase;
 			font-weight: 400;
+			margin-top: 0;
 		}
 
 		.dec-octave, .inc-octave, .dec-detune, .inc-detune {
 			color: #fff;
 		}
 
-		.detune-contain, .octave-contain {
+		.detune-contain, .octave-contain, .detune-contain-2, .octave-contain-2 {
 			width: 50%;
 			float: left;
 			font-size: 1em;
@@ -198,10 +132,44 @@ html, body {
 			}
 		}
 
-		.amp-contain {
+		.amp-contain-2 {
 			clear: both;
 			padding-top: 1.5em;
 		}
+	}
+
+	.osc-2-contain {
+		background-color: $off-white;
+		color: $first;
+		h2 {
+			color: $first;
+		}
+
+		h3 {
+			color: $first;
+		}
+
+		button {
+			color: $first;
+			border: 3px solid $first;
+		}
+
+		button:hover, button.active {
+			color: $off-white;
+			background: $first;
+		}
+
+		.dec-octave, .inc-octave, .dec-detune, .inc-detune {
+			color: $first;
+			display: inline-block;
+		}
+		.amp-contain {
+			clear: both;
+		}
+	}
+
+	.osc1-up, .osc2-up {
+		margin-top: 1em;
 	}
 
 	.filter {
@@ -232,10 +200,55 @@ html, body {
 			background-color: $third;
 		}
 
+		.adsr {
+			margin-top: 1em;
+			color: #fff;
+			text-align: center;
+			span {
+				margin-left: 3em;
+				font-weight: 700;
+
+				&:first-of-type {
+					margin-left: 0;
+				}
+			}
+		}
+
 		.lfo-contain {
 			height: 50%;
 			background-color: #A64942;
+			position: relative;
 		}
+
+		.toggle-contain {
+			canvas {
+				position: absolute;
+				top: 10px;
+				left: 10px;
+			}
+		}
+
+		.lfo-inner-contain {
+			text-align: center;
+
+			span {
+				font-weight: 700;
+				text-align: center;
+				color: $off-white;
+				position: relative;
+				top: 10px;
+			}
+
+			canvas {
+				display: block;
+				padding-left: 0;
+			    padding-right: 0;
+			    margin-left: auto;
+			    margin-right: auto;
+			    display: block;
+			}
+		}
+
 
 		.multi-contain canvas {
 			display: block;
@@ -248,7 +261,66 @@ html, body {
 	}
 
 	.effects {
+		h2 {
+			color: $first;
+		}
+
+		text-transform: uppercase;
+		text-align: center;
 		background-color: $fourth;
 		color: $first;
+
+		.verb-contain {
+			background-color: $second;
+			border-radius: 8px;
+			overflow: hidden;
+			margin: 0 1em;
+			padding-bottom: 2em;
+		}
+
+		.ping-pong-contain {
+			clear: both;
+			background-color: #E6E6E6;
+			border-radius: 8px;
+			overflow: hidden;
+			margin: 0 1em;
+			margin-top: 1em;
+			padding-bottom: 2em;
+		}
+
+		.bit-crush-contain {
+			clear: both;
+			background-color: #55E9BC;
+			border-radius: 8px;
+			overflow: hidden;
+			margin: 0 1em;
+			margin-top: 1em;
+			padding-bottom: 2em;
+		}
+
+		.knob-contain {
+			display: inline-block;
+			float: left;
+			width: 50%;
+			canvas {
+				display: block;
+				padding-left: 0;
+			    padding-right: 0;
+			    margin-left: auto;
+			    margin-right: auto;
+			    display: block;
+			}
+			span {
+				font-weight: 700;
+				position: relative;
+				top: 10px;
+			}
+		}
+
+		
+
+		.distortion-contain {
+			clear: both;
+		}
 	}
 }

@@ -1,4 +1,4 @@
-export default function(synth, cutoff, state) {
+export default function(synth, synth2, cutoff, lfo, state) {
 
 	// Initialize midi config
 	var inputs, input;
@@ -21,14 +21,21 @@ export default function(synth, cutoff, state) {
 	    switch(e.data[0]) {
 	        case 157:
 
-	            synth.triggerAttack(_mtof(e.data[1], state));
+	            synth.triggerAttack(_mtof(e.data[1], state.synth1));
+	            synth2.triggerAttack(_mtof(e.data[1], state.synth2));
 	            break;
 	        case 141:
-	            synth.triggerRelease(_mtof(e.data[1], state));
+	            synth.triggerRelease(_mtof(e.data[1], state.synth1));
+	            synth2.triggerRelease(_mtof(e.data[1], state.synth2));
 	            break;
 	        case 189:
 	        	if (e.data[1] === 1) {
 		        	cutoff.set({
+		        		value: e.data[2] / 127
+		        	}, true);
+	        	}
+	        	if (e.data[1] === 2) {
+	        		lfo.set({
 		        		value: e.data[2] / 127
 		        	}, true);
 	        	}
