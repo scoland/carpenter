@@ -3,7 +3,8 @@ import nexus from '../node_modules/nexusui/dist/nexusUI.js';
 import Tone from 'tone';
 require('./sass/main.scss');
 import polySynth from './components/synth';
-import midiInit from './components/midi'
+import midiInit from './components/midi';
+import keyboardInit from './components/keyboard';
 
 nx.onload = function() {
 	const state = {
@@ -30,10 +31,12 @@ nx.onload = function() {
     cutoffdial.colors.accent = first;
 	cutoffdial.init();
 
-	var inputs;
-
 	const synth = polySynth();
 	const synth2 = polySynth();
+
+    // Set up event listeners for the computer keyboard
+    keyboardInit(synth, synth2, state);
+
 	const filter = new Tone.Filter(12000, "lowpass", -24);
 	const pingPong = new Tone.PingPongDelay();
 	const freeverb = new Tone.Freeverb();

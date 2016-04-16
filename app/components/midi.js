@@ -1,7 +1,7 @@
 export default function(synth, synth2, cutoff, lfo, verb, ping, state) {
 
 	// Initialize midi config
-	var inputs, input;
+	let inputs, input;
 	navigator.requestMIDIAccess()
 		.then(function(midi) {
 			inputs = midi.inputs.values();
@@ -28,6 +28,7 @@ export default function(synth, synth2, cutoff, lfo, verb, ping, state) {
 	            synth2.triggerRelease(_mtof(e.data[1], state.synth2));
 	            break;
 	        case 189:
+	        	// For the knobs on Akai MPK Mini
 	        	if (e.data[1] === 1) {
 		        	cutoff.set({
 		        		value: e.data[2] / 127
