@@ -101,21 +101,8 @@ nx.onload = function() {
     	value: .75
     }, true);
 
-    ampdial.on('*', data => {
-    	synth.set({
-    		"oscillator": {
-    			volume: scaleRange(data.value, -40, 16)
-    		}
-    	})
-    });
-
-    amp2dial.on('*', data => {
-    	synth2.set({
-    		"oscillator": {
-    			volume: scaleRange(data.value, -40, 16)
-    		}
-    	})
-    });
+    attachAmpDialClickHandler(ampdial, synth);
+    attachAmpDialClickHandler(amp2dial, synth2);
 
     crushbits.on('*', data => {
     	crusher.bits = Math.floor(data.value * 8);
@@ -222,6 +209,16 @@ nx.onload = function() {
             synth.set({
                 "oscillator": {
                     "type": $(this).data('wave')
+                }
+            })
+        });
+    }
+
+    function attachAmpDialClickHandler(dial, synth) {
+        dial.on('*', data => {
+            synth.set({
+                "oscillator": {
+                    volume: scaleRange(data.value, -40, 16)
                 }
             })
         });
