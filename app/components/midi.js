@@ -20,7 +20,6 @@ export default function(synth, synth2, cutoff, lfo, verb, ping, state) {
 	    */
 	    switch(e.data[0]) {
 	        case 157:
-
 	            synth.triggerAttack(_mtof(e.data[1], state.synth1));
 	            synth2.triggerAttack(_mtof(e.data[1], state.synth2));
 	            break;

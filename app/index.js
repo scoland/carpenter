@@ -50,20 +50,19 @@ nx.onload = function() {
 	freeverb.connect(crusher);
 
 	synth.set({
-    		"envelope" : {
-    			"attack": .1
-    		}
-    	});
+		"envelope" : {
+			"attack": .1
+		}
+	});
 
 	const midi = midiInit(synth, synth2, cutoffdial, lforate, verbwet, pingwet, state);
 
-	// No reverb to start off
+	// No fx to start off
 	freeverb.wet.value = 0;
 	pingPong.wet.value = 0;
 	crusher.wet.value = 0;
 
 	filter.frequency.value = 12000;
-	
 
     envadsr.sliders = 4;
     envadsr.colors.accent = first;
@@ -85,14 +84,14 @@ nx.onload = function() {
     lfotoggle.init();
 
     envadsr.set({
-	        		0: 0.1,
-	        		1: 0.1,
-	        		2: 0.3,
-	        		3: 1 / 8
-	        	});
+		0: 0.1,
+		1: 0.1,
+		2: 0.3,
+		3: 1 / 8
+	});
    	cutoffdial.set({
-   	    	value: 1
-   	    });
+    	value: 1
+    });
 
     ampdial.set({
     	value: .75
@@ -155,7 +154,7 @@ nx.onload = function() {
 
     lforate.on('*', data => {
     	lfo.frequency.value = data.value * 10;
-    })
+    });
 
     lfotoggle.on('*', data => {
     	if (data.value) {
@@ -169,79 +168,14 @@ nx.onload = function() {
     	filter.frequency.value = data.value * 12000;
     });
 
-    $('.octave-contain').on('click', 'a', function(event) {
-    	if ($(this).hasClass('dec-octave')) {
-    		state.synth1.octave--;
-    		$('.octave-contain .octave-num').text(state.synth1.octave);
-    	} else {
-    		state.synth1.octave++
-    		$('.octave-contain .octave-num').text(state.synth1.octave);
-    	}
-    });
+    attachOctaveClickHandler('.octave-contain', state.synth1);
+    attachOctaveClickHandler('.octave-contain-2', state.synth2);
 
-    $('.octave-contain-2').on('click', 'a', function(event) {
-    	if ($(this).hasClass('dec-octave')) {
-    		state.synth2.octave--;
-    		$('.octave-contain-2 .octave-num').text(state.synth2.octave);
-    	} else {
-    		state.synth2.octave++
-    		$('.octave-contain-2 .octave-num').text(state.synth2.octave);
-    	}
-    });
+    attachDetuneClickHandler('.detune-contain', state.synth1, synth);
+    attachDetuneClickHandler('.detune-contain-2', state.synth2, synth2);
 
-    $('.detune-contain').on('click', 'a', function(event) {
-    	if ($(this).hasClass('dec-detune')) {
-    		state.synth1.detune--;
-    		$('.detune-contain .detune-num').text(state.synth1.detune);
-    	} else {
-    		state.synth1.detune++
-    		$('.detune-contain .detune-num').text(state.synth1.detune);
-    	}
-
-    	synth.set({
-    		"oscillator": {
-    			"detune": state.synth1.detune
-    		}
-    	});
-    });
-
-    $('.detune-contain-2').on('click', 'a', function(event) {
-    	if ($(this).hasClass('dec-detune')) {
-    		state.synth2.detune--;
-    		$('.detune-contain-2 .detune-num').text(state.synth2.detune);
-    	} else {
-    		state.synth2.detune++
-    		$('.detune-contain-2 .detune-num').text(state.synth2.detune);
-    	}
-
-    	synth.set({
-    		"oscillator": {
-    			"detune": state.synth2.detune
-    		}
-    	});
-    });
-
-    $('.waves').on('click', 'button', function(event) {
-    	$('.waves button').removeClass('active');
-    	$(this).addClass('active');
-
-    	synth.set({
-    		"oscillator": {
-    			"type": $(this).data('wave')
-    		}
-    	})
-    });
-
-    $('.waves-2').on('click', 'button', function(event) {
-    	$('.waves-2 button').removeClass('active');
-    	$(this).addClass('active');
-
-    	synth2.set({
-    		"oscillator": {
-    			"type": $(this).data('wave')
-    		}
-    	})
-    });
+    attachWaveClickHandler('.waves', synth);
+    attachWaveClickHandler('.waves-2', synth2);
 
     $('.filters').on('click', 'button', function(event) {
     	$('.filters button').removeClass('active');
@@ -258,17 +192,50 @@ nx.onload = function() {
     $('.osc1-up').click(function(test) {
     	$('.osc-2-contain').removeClass('slide-up');
     	$('.osc-2-contain').addClass('slide-down');
-    })
+    });
 
-};
+    function attachOctaveClickHandler(selector, synthState) {
+        $(selector).on('click', 'a', function(event) {
+            $(this).hasClass('dec-octave') ? synthState.octave-- : synthState.octave++;
+            $(selector + ' .octave-num').text(synthState.octave);
+        });
+    }
 
-var scaleRange = function(input, min, max) {
-	let xMin = min;
-	let xMax = max;
+    function attachDetuneClickHandler(selector, synthState, synth) {
+        $(selector).on('click', 'a', function(event) {
+            $(this).hasClass('dec-detune') ? synthState.detune-- : synthState.detune++;
+            $(selector + ' .detune-num').text(synthState.detune);
 
-	let yMin = 0;
-	let yMax = 1;
+            synth.set({
+                "oscillator": {
+                    "detune": state.synth1.detune
+                }
+            });
+        });
+    }
 
-	let percent = (input - yMin) / (yMax - yMin);
-	return percent * (xMax - xMin) + xMin;
+    function attachWaveClickHandler(selector, synth) {
+        $(selector).on('click', 'button', function(event) {
+            $(selector + ' button').removeClass('active');
+            $(this).addClass('active');
+
+            synth.set({
+                "oscillator": {
+                    "type": $(this).data('wave')
+                }
+            })
+        });
+    }
+
+    function scaleRange(input, min, max) {
+        let xMin = min;
+        let xMax = max;
+
+        let yMin = 0;
+        let yMax = 1;
+
+        let percent = (input - yMin) / (yMax - yMin);
+        return percent * (xMax - xMin) + xMin;
+    }
+
 };
