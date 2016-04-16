@@ -144,11 +144,7 @@ nx.onload = function() {
     });
 
     lfotoggle.on('*', data => {
-    	if (data.value) {
-    		lfo.start();
-    	} else {
-    		lfo.stop();
-    	}
+        data.value ? lfo.start() : lfo.stop();
     });
 
     cutoffdial.on('*', data => {
