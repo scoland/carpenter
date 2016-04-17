@@ -180,6 +180,12 @@ nx.onload = function() {
     	$('.osc-2-contain').addClass('slide-down');
     });
 
+    $('.close-overlay').click(function(e) {
+        e.preventDefault();
+        $('.overlay').removeClass('open');
+        $('.overlay').addClass('close');
+    })
+
     function attachOctaveClickHandler(selector, synthState) {
         $(selector).on('click', 'a', function(event) {
             $(this).hasClass('dec-octave') ? synthState.octave-- : synthState.octave++;

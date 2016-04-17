@@ -1,240 +1,158 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>Carpenter</title>
-	<script src="https://use.typekit.net/rhx3gmk.js"></script>
-	<script>try{Typekit.load({ async: true });}catch(e){}</script>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+    <title>Carpenter</title>
+    <script src="https://use.typekit.net/rhx3gmk.js"></script>
+    <script>
+    try {
+        Typekit.load({
+            async: true
+        });
+    } catch (e) {}
+    </script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 </head>
+
 <body>
+    <ul class="modules">
+        <li class="osc">
+            <div class="osc-1-contain">
+                <h2>Osc 1</h2>
+                <div class="tabs is-toggle waves">
+                    <button class="active sine-wave" data-wave="sine">Sin</button>
+                    <button class="square-wave" data-wave="square">Sqr</button>
+                    <button class="triange-wave" data-wave="triangle">Tri</button>
+                    <button class="saw-wave" data-wave="sawtooth">Saw</button>
+                </div>
+                <div class="octave-contain">
+                    <h3>Octave</h3>
+                    <a href="#" class="dec-octave"><i class="fa fa-chevron-left"></i></a>
+                    <span class="octave-num">0</span>
+                    <a href="#" class="inc-octave"><i class="fa fa-chevron-right"></i></a>
+                </div>
+                <div class="detune-contain">
+                    <h3>Detune</h3>
+                    <a href="#" class="dec-detune"><i class="fa fa-chevron-left"></i></a>
+                    <span class="detune-num">0</span>
+                    <a href="#" class="inc-detune"><i class="fa fa-chevron-right"></i></a>
+                </div>
+                <div class="amp-contain">
+                    <h3>Amp</h3>
+                    <canvas nx="dial" width="80" height="80" id="ampdial"></canvas>
+                </div>
+                <button class="osc2-up">Osc 2</button>
+            </div>
+            <div class="osc-2-contain">
+                <h2>Osc 2</h2>
+                <div class="tabs is-toggle waves-2">
+                    <button class="active sine-wave" data-wave="sine">Sin</button>
+                    <button class="square-wave" data-wave="square">Sqr</button>
+                    <button class="triange-wave" data-wave="triangle">Tri</button>
+                    <button class="saw-wave" data-wave="sawtooth">Saw</button>
+                </div>
+                <div class="octave-contain-2">
+                    <h3>Octave</h3>
+                    <a href="#" class="dec-octave"><i class="fa fa-chevron-left"></i></a>
+                    <span class="octave-num">0</span>
+                    <a href="#" class="inc-octave"><i class="fa fa-chevron-right"></i></a>
+                </div>
+                <div class="detune-contain-2">
+                    <h3>Detune</h3>
+                    <a href="#" class="dec-detune"><i class="fa fa-chevron-left"></i></a>
+                    <span class="detune-num">0</span>
+                    <a href="#" class="inc-detune"><i class="fa fa-chevron-right"></i></a>
+                </div>
+                <div class="amp-contain-2">
+                    <h3>Amp</h3>
+                    <canvas nx="dial" width="80" height="80" id="amp2dial"></canvas>
+                </div>
+                <button class="osc1-up">Osc 1</button>
+            </div>
+        </li>
+        <li class="filter">
+            <h2>Filter</h2>
+            <div class="tabs is-toggle filters">
+                <button class="active" data-filter="lowpass">Lowpass</button>
+                <button data-filter="highpass">Highpass</button>
+                <button data-filter="bandpass">Bandpass</button>
+                <button data-filter="notch">Notch</button>
+            </div>
+            <h3>Cutoff</h3>
+            <div class="filter-knob-contain">
+                <canvas nx="dial" id="cutoffdial" width="80" height="80"></canvas>
+            </div>
+        </li>
+        <li class="envelope">
+            <div class="env-contain">
+                <h2>Env</h2>
+                <div class="multi-contain">
+                    <canvas nx="multislider" height="175" width="250" id="envadsr"></canvas>
+                    <div class="adsr">
+                        <span>A</span>
+                        <span>D</span>
+                        <span>S</span>
+                        <span>R</span>
+                    </div>
+                </div>
+            </div>
+            <div class="lfo-contain">
+                <div class="toggle-contain">
+                    <canvas nx="toggle" id="lfotoggle"></canvas>
+                </div>
+                <h2>LFO</h2>
+                <div class="lfo-inner-contain">
+                    <canvas nx="dial" width="80" height="80" id="lforate"></canvas>
+                    <span>Rate</span>
+                </div>
+            </div>
+        </li>
+        <li class="effects">
+            <h2>FX</h2>
+            <div class="verb-contain">
+                <h3>Reverb</h3>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="verbroom"></canvas>
+                    <span>Room</span>
+                </div>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="verbwet"></canvas>
+                    <span>Wet</span>
+                </div>
+            </div>
+            <div class="ping-pong-contain">
+                <h3>Ping Pong Delay</h3>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="pingfb"></canvas>
+                    <span>Feedback</span>
+                </div>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="pingwet"></canvas>
+                    <span>Wet</span>
+                </div>
+            </div>
+            <div class="bit-crush-contain">
+                <h3>Bit Crusher</h3>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="crushbits"></canvas>
+                    <span>Bits</span>
+                </div>
+                <div class="knob-contain">
+                    <canvas nx="dial" width="80" height="80" id="crushwet"></canvas>
+                    <span>Wet</span>
+                </div>
+            </div>
+        </li>
+    </ul>
 
-	<ul class="modules">
-		<li class="osc">
-			<div class="osc-1-contain">
-				
-				<h2>Osc 1</h2>
-				<div class="tabs is-toggle waves">
-					<button class="active sine-wave" data-wave="sine">Sin</button>
-					<button class="square-wave" data-wave="square">Sqr</button>
-					<button class="triange-wave" data-wave="triangle">Tri</button>
-					<button class="saw-wave" data-wave="sawtooth">Saw</button>
-				</div>
-
-				<div class="octave-contain">
-					<h3>Octave</h3>
-					<a href="#" class="dec-octave"><i class="fa fa-chevron-left"></i></a>
-					<span class="octave-num">0</span>
-					<a href="#" class="inc-octave"><i class="fa fa-chevron-right"></i></a>
-				</div>
-
-				<div class="detune-contain">
-					<h3>Detune</h3>
-					<a href="#" class="dec-detune"><i class="fa fa-chevron-left"></i></a>
-					<span class="detune-num">0</span>
-					<a href="#" class="inc-detune"><i class="fa fa-chevron-right"></i></a>
-				</div>
-
-				<div class="amp-contain">
-					<h3>Amp</h3>
-					<canvas nx="dial" width="80" height="80" id="ampdial"></canvas>
-				</div>
-
-				<button class="osc2-up">Osc 2</button>
-
-			</div>
-			<div class="osc-2-contain">
-				<h2>Osc 2</h2>
-				<div class="tabs is-toggle waves-2">
-					<button class="active sine-wave" data-wave="sine">Sin</button>
-					<button class="square-wave" data-wave="square">Sqr</button>
-					<button class="triange-wave" data-wave="triangle">Tri</button>
-					<button class="saw-wave" data-wave="sawtooth">Saw</button>
-				</div>
-
-				<div class="octave-contain-2">
-					<h3>Octave</h3>
-					<a href="#" class="dec-octave"><i class="fa fa-chevron-left"></i></a>
-					<span class="octave-num">0</span>
-					<a href="#" class="inc-octave"><i class="fa fa-chevron-right"></i></a>
-				</div>
-
-				<div class="detune-contain-2">
-					<h3>Detune</h3>
-					<a href="#" class="dec-detune"><i class="fa fa-chevron-left"></i></a>
-					<span class="detune-num">0</span>
-					<a href="#" class="inc-detune"><i class="fa fa-chevron-right"></i></a>
-				</div>
-
-				<div class="amp-contain-2">
-					<h3>Amp</h3>
-					<canvas nx="dial" width="80" height="80" id="amp2dial"></canvas>
-				</div>
-
-				<button class="osc1-up">Osc 1</button>
-			</div>
-		</li>
-
-
-		<li class="filter">
-			<h2>Filter</h2>
-
-			<div class="tabs is-toggle filters">
-				<button class="active" data-filter="lowpass">Lowpass</button>
-				<button data-filter="highpass">Highpass</button>
-				<button data-filter="bandpass">Bandpass</button>
-				<button data-filter="notch">Notch</button>
-			</div>
-
-			<h3>Cutoff</h3>
-			<div class="filter-knob-contain">
-				<canvas nx="dial" id="cutoffdial" width="80" height="80"></canvas>
-			</div>
-		</li>
-		<li class="envelope">
-			<div class="env-contain">
-				<h2>Env</h2>
-				<div class="multi-contain">
-					<canvas nx="multislider" height="175" width="250" id="envadsr"></canvas>
-					<div class="adsr">
-						<span>A</span>
-						<span>D</span>
-						<span>S</span>
-						<span>R</span>
-					</div>
-				</div>
-				
-			</div>
-			<div class="lfo-contain">
-				<div class="toggle-contain">
-				<canvas nx="toggle" id="lfotoggle"></canvas>
-					
-				</div>
-				<h2>LFO</h2> 
-				<div class="lfo-inner-contain">
-					
-					<canvas nx="dial" width="80" height="80" id="lforate"></canvas>
-					<span>Rate</span>
-				</div>
-			</div>
-		</li>
-		<li class="effects">
-			<h2>FX</h2>
-
-			<div class="verb-contain">
-				<h3>Reverb</h3>
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="verbroom"></canvas>
-					<span>Room</span>
-				</div>
-
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="verbwet"></canvas>
-					<span>Wet</span>
-				</div>
-			</div>
-
-			<div class="ping-pong-contain">
-				<h3>Ping Pong Delay</h3>
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="pingfb"></canvas>
-					<span>Feedback</span>
-				</div>
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="pingwet"></canvas>
-					<span>Wet</span>
-				</div>
-			</div>
-
-			<div class="bit-crush-contain">
-				<h3>Bit Crusher</h3>
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="crushbits"></canvas>
-					<span>Bits</span>
-				</div>
-				<div class="knob-contain">
-					<canvas nx="dial" width="80" height="80" id="crushwet"></canvas>
-					<span>Wet</span>
-				</div>
-			</div>
-
-		</li>
-	</ul>
-
-	   <!--  <div class="container">
-
-		    <div class="synth-contain">
-
-		    	<div class="osc-contain">
-
-		    		<div class="card-header">
-		    			<h2>Oscillator</h2>
-		    		</div>
-
-		    		<div class="card-body">
-						<div class="tabs is-toggle waves">
-							<button class="active sine-wave" data-wave="sine">Sin</button>
-							<button class="square-wave" data-wave="square">Sqr</button>
-							<button class="triange-wave" data-wave="triangle">Tri</button>
-							<button class="saw-wave" data-wave="sawtooth">Saw</button>
-						</div>
-		    		</div>
-
-		    	</div>
-
-		    	<div class="filter-contain">
-			    	<div class="card-header">
-			    		<h2>Filter</h2>
-			    	</div>
-
-			    	<div class="card-body">
-						<canvas nx="dial" width="80" height="80" label="Cutoff"></canvas>
-						<p>Cutoff</p>
-			    	</div>
-
-		    	</div>
-
-		    	<div class="env-contain">
-			    	<div class="card-header">
-			    		<h2>Envelope</h2>
-			    	</div>
-
-			    	<div class="card-body">
-		    			<canvas nx="multislider" height="150" width="200"></canvas>
-			    	</div>
-		    		
-		    	</div>
-
-    	    	<div class="verb-contain">
-    		    	<div class="card-header">
-    		    		<h2>Reverb</h2>
-    		    	</div>
-
-    		    	<div class="card-body">
-    	    			<canvas nx="dial" width="80" height="80"></canvas>
-    	    			<p>Room</p>
-    	    			<canvas nx="dial" width="80" height="80"></canvas>
-    	    			<p>Wet</p>
-    		    	</div>
-    	    		
-    	    	</div>
-
-    	    	<div class="lfo-contain">
-    		    	<div class="card-header">
-    		    		<h2>LFO</h2>
-    		    	</div>
-
-    		    	<div class="card-body">
-    	    			<canvas nx="toggle"></canvas>
-    	    			<canvas nx="dial" width="80" height="80"></canvas>
-    		    	</div>
-    	    		
-    	    	</div>
- -->
-		      	<!-- <canvas nx="keyboard" height="400" width="1200" class="keyboard-canvas"></canvas> -->
-		      	<!-- <canvas nx="select" class="wave"></canvas> -->
-		    	
-		    </div>
-	    </div>
+		<div class="overlay overlay-hugeinc open">
+      <div class="overlay-content">
+        <h3>Carpenter</h3>
+        <p>Carpenter is a browser based synthesizer that can be played with your QWERTY keyboard or a USB MIDI Controller. Use your keyboard to play notes. Currently only supported in Chrome.</p>
+  		  <button type="button" class="close-overlay">Enter</button>
+      </div>
+		</div>
 
 </body>
+
 </html>
