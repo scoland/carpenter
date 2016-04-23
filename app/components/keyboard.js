@@ -34,7 +34,6 @@ export default function(synth, synth2, state) {
             let hz = keyNotes[keyCode];
             if (hz) {
               e.preventDefault();
-              console.log(state, 'the state')
               synth.triggerAttack(hzToOctave(hz, state.synth1.octave));
               synth2.triggerAttack(hzToOctave(hz, state.synth2.octave));
             }

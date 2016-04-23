@@ -1,4 +1,5 @@
 import $ from 'jquery';
+import webMidi from '../node_modules/web-midi-api/WebMIDIAPI.min.js';
 import nexus from '../node_modules/nexusui/dist/nexusUI.js';
 import Tone from 'tone';
 require('./sass/main.scss');

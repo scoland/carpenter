@@ -16,6 +16,7 @@
     "pace": "0.0.4",
     "qwerty-hancock": "^0.5.1",
     "tone": "^0.6.1",
+    "web-midi-api": "^1.4.4",
     "webpack": "^1.12.14"
   },
   "devDependencies": {
