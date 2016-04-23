@@ -13,6 +13,7 @@
     "jquery": "^2.2.1",
     "nexusui": "^1.0.8",
     "normalize.css": "^3.0.3",
+    "pace": "0.0.4",
     "qwerty-hancock": "^0.5.1",
     "tone": "^0.6.1",
     "webpack": "^1.12.14"
